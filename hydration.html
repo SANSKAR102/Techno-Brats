@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Intake | FitBuddy</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #3e8e41;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f5f7fa;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            min-height: 100vh;
+        }
+
+         
+        header {
+            background-color: var(--white);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        
+        main {
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--text-dark);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .page-description {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+         
+        .hydration-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .water-icon {
+            font-size: 60px;
+            color: #2196F3;
+            margin-bottom: 20px;
+        }
+
+        .water-amount {
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .water-goal {
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .progress-container {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2196F3, #64B5F6);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .add-water-btns {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .water-btn {
+            background-color: var(--white);
+            border: 1px solid #2196F3;
+            border-radius: 8px;
+            padding: 15px 10px;
+            color: #2196F3;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .water-btn:hover {
+            background-color: #2196F3;
+            color: var(--white);
+        }
+
+        .custom-input {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .custom-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            font-size: 16px;
+        }
+
+        .custom-input button {
+            background-color: #2196F3;
+            color: var(--white);
+            border: none;
+            border-radius: 0 8px 8px 0;
+            padding: 0 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        
+        .history-section {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: var(--text-dark);
+            font-size: 20px;
+        }
+
+        .history-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .history-amount {
+            color: #2196F3;
+            font-weight: 600;
+        }
+
+        .history-time {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+         
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--text-light);
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .back-btn i {
+            margin-right: 5px;
+        }
+
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #ffebee;
+            color: #f44336;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="location.href='home.html'">FB</div>
+        <div class="user-menu">
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <div class="user-avatar" id="userAvatar">U</div>
+        </div>
+    </header>
+
+    <main>
+        <a href="home.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <div class="page-header">
+            <h1>Water Intake Tracker</h1>
+            <p class="page-description">Stay hydrated throughout the day</p>
+        </div>
+
+        <div class="hydration-card">
+            <div class="water-icon">
+                <i class="fas fa-tint"></i>
+            </div>
+            <div class="water-amount" id="currentWater">0 L</div>
+            <div class="water-goal">Goal: <span id="waterGoal">3 L</span></div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="waterProgress"></div>
+            </div>
+
+            <div class="add-water-btns">
+                <button class="water-btn" data-amount="0.25">250ml</button>
+                <button class="water-btn" data-amount="0.5">500ml</button>
+                <button class="water-btn" data-amount="0.75">750ml</button>
+                <button class="water-btn" data-amount="1">1L</button>
+            </div>
+
+            <div class="custom-input">
+                <input type="number" id="customAmount" placeholder="Enter custom amount (L)">
+                <button id="addCustom">Add</button>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <div class="section-header">
+                <h2><i class="fas fa-history"></i> Today's Intake</h2>
+            </div>
+            <div class="history-list" id="waterHistory">
+                <div class="empty-state" style="text-align: center; padding: 20px; color: var(--text-light);">
+                    <i class="fas fa-tint" style="font-size: 40px; color: #e0e0e0; margin-bottom: 10px;"></i>
+                    <p>No water intake logged yet</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const userName = localStorage.getItem('userFirstName') || 'User';
+            document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+
+            
+            let waterIntake = 0;
+            const waterGoal = 3;  
+            let waterHistory = [];
+
+             
+            const savedData = JSON.parse(localStorage.getItem('waterData'));
+            if (savedData) {
+                waterIntake = savedData.waterIntake || 0;
+                waterHistory = savedData.history || [];
+            }
+
+             
+            updateWaterDisplay();
+
+             
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('userFirstName');
+                window.location.href = 'login.html';
+            });
+
+             
+            document.querySelectorAll('.water-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const amount = parseFloat(this.getAttribute('data-amount'));
+                    addWater(amount);
+                });
+            });
+
+            
+            document.getElementById('addCustom').addEventListener('click', function() {
+                const amount = parseFloat(document.getElementById('customAmount').value);
+                if (!isNaN(amount) && amount > 0) {
+                    addWater(amount);
+                    document.getElementById('customAmount').value = '';
+                }
+            });
+
+            
+            function addWater(amount) {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                waterIntake += amount;
+                waterHistory.unshift({
+                    amount: amount,
+                    time: timeString
+                });
+
+                 
+                localStorage.setItem('waterData', JSON.stringify({
+                    waterIntake: waterIntake,
+                    history: waterHistory
+                }));
+
+                
+                const userData = JSON.parse(localStorage.getItem('userData')) || {};
+                userData.waterIntake = waterIntake;
+                localStorage.setItem('userData', JSON.stringify(userData));
+
+                updateWaterDisplay();
+            }
+
+             
+            function updateWaterDisplay() {
+                 
+                document.getElementById('currentWater').textContent = waterIntake.toFixed(1) + ' L';
+                
+                
+                const progressPercent = Math.min((waterIntake / waterGoal) * 100, 100);
+                document.getElementById('waterProgress').style.width = progressPercent + '%';
+                
+                
+                const historyContainer = document.getElementById('waterHistory');
+                if (waterHistory.length > 0) {
+                    historyContainer.innerHTML = '';
+                    waterHistory.forEach(entry => {
+                        const historyItem = document.createElement('div');
+                        historyItem.className = 'history-item';
+                        historyItem.innerHTML = `
+                            <div class="history-amount">+${entry.amount} L</div>
+                            <div class="history-time">${entry.time}</div>
+                        `;
+                        historyContainer.appendChild(historyItem);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
