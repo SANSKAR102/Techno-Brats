@@ -184,25 +184,25 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             
-            // Validate password match
+             
             if (password !== confirmPassword) {
                 showMessage('Passwords do not match', 'error');
                 return;
             }
             
-            // Validate password strength
+           
             if (!validatePassword(password)) {
                 showMessage('Password must be at least 8 characters with 1 number', 'error');
                 return;
             }
             
-            // In a real app, you would send this data to your backend
+             
             console.log('Signup data:', { name, email, password });
             
-            // Show success message
+            
             showMessage('Account created successfully! Redirecting to login...', 'success');
             
-            // Redirect to login after 3 seconds
+           
             setTimeout(() => {
                 window.location.href = 'login.html';
             }, 3000);
@@ -214,14 +214,14 @@
             messageEl.className = `message ${type}`;
             messageEl.style.display = 'block';
             
-            // Hide message after 5 seconds
+            
             setTimeout(() => {
                 messageEl.style.display = 'none';
             }, 5000);
         }
         
         function validatePassword(password) {
-            // At least 8 characters with 1 number
+           
             const re = /^(?=.*\d).{8,}$/;
             return re.test(password);
         }
