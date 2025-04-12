@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition | FitBuddy</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #3e8e41;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f5f7fa;
+            --white: #ffffff;
+            --warning: #ff9800;
+            --danger: #f44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            min-height: 100vh;
+        }
+
+        
+        header {
+            background-color: var(--white);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        
+        main {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .back-arrow {
+            color: var(--primary-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: var(--text-dark);
+        }
+
+        
+        .nutrition-summary {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .macros-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .macro-card {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .macro-card.calories {
+            background-color: #fff3e0;
+        }
+
+        .macro-card.protein {
+            background-color: #e8f5e9;
+        }
+
+        .macro-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .macro-name {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .macro-target {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .progress-container {
+            height: 5px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+        
+        .log-nutrition {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        
+        .recent-meals {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .meals-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .meal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        .meal-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .meal-info {
+            flex: 1;
+        }
+
+        .meal-name {
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .meal-time {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        .meal-macros {
+            display: flex;
+            gap: 15px;
+        }
+
+        .macro-pill {
+            background-color: #e8f5e9;
+            color: var(--primary-dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .macro-pill.calories {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            margin-left: 15px;
+            transition: color 0.3s;
+        }
+
+        .delete-btn:hover {
+            color: var(--danger);
+        }
+
+         
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #ffebee;
+            color: #f44336;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="location.href='home.html'">FB</div>
+        <div class="user-menu">
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <div class="user-avatar" id="userAvatar">U</div>
+        </div>
+    </header>
+
+    <main>
+        
+        <div class="page-header">
+            <i class="fas fa-arrow-left back-arrow" onclick="location.href='home.html'"></i>
+            <h1>Nutrition Tracker</h1>
+        </div>
+
+        
+        <section class="nutrition-summary">
+            <div class="macros-grid">
+                <div class="macro-card calories">
+                    <div class="macro-value" id="caloriesConsumed">0</div>
+                    <div class="macro-name">Calories</div>
+                    <div class="macro-target">Target: <span id="caloriesTarget">2000</span> kcal</div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="caloriesProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="macro-card protein">
+                    <div class="macro-value" id="proteinConsumed">0</div>
+                    <div class="macro-name">Protein</div>
+                    <div class="macro-target">Target: <span id="proteinTarget">150</span> g</div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="proteinProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         
+        <section class="log-nutrition">
+            <form id="nutritionForm">
+                <div class="form-group">
+                    <label for="foodName">Food Name</label>
+                    <input type="text" id="foodName" placeholder="e.g., Grilled Chicken Breast" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mealType">Meal Type</label>
+                    <select id="mealType" required>
+                        <option value="">Select meal type</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="snack">Snack</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="calories">Calories (kcal)</label>
+                    <input type="number" id="calories" placeholder="e.g., 250" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="protein">Protein (g)</label>
+                    <input type="number" id="protein" placeholder="e.g., 30" step="0.1" required>
+                </div>
+                
+                <button type="submit" class="btn btn-block">
+                    <i class="fas fa-plus"></i> Add Food
+                </button>
+            </form>
+        </section>
+
+         
+        <section class="recent-meals">
+            <h2><i class="fas fa-history"></i> Today's Meals</h2>
+            <div class="meals-list" id="mealsList">
+                <div class="empty-state">
+                    <i class="fas fa-utensils"></i>
+                    <p>No meals logged yet today</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+             
+            const userName = localStorage.getItem('userFirstName') || 'User';
+            document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+
+             
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('userFirstName');
+                window.location.href = 'login.html';
+            });
+
+             
+            let nutritionData = JSON.parse(localStorage.getItem('nutritionData')) || {
+                today: {
+                    meals: [],
+                    totals: {
+                        calories: 0,
+                        protein: 0
+                    }
+                },
+                targets: {
+                    calories: 2000,
+                    protein: 150
+                }
+            };
+
+            
+            updateNutritionDashboard(nutritionData);
+
+             
+            document.getElementById('nutritionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newMeal = {
+                    id: Date.now(),
+                    name: document.getElementById('foodName').value,
+                    type: document.getElementById('mealType').value,
+                    calories: parseFloat(document.getElementById('calories').value),
+                    protein: parseFloat(document.getElementById('protein').value),
+                    timestamp: new Date().toISOString()
+                };
+                
+                
+                nutritionData.today.meals.unshift(newMeal);
+                
+                 
+                nutritionData.today.totals.calories += newMeal.calories;
+                nutritionData.today.totals.protein += newMeal.protein;
+                
+                
+                localStorage.setItem('nutritionData', JSON.stringify(nutritionData));
+                
+                
+                updateNutritionDashboard(nutritionData);
+                
+                
+                this.reset();
+            });
+
+            
+            function deleteMeal(mealId) {
+                const mealIndex = nutritionData.today.meals.findIndex(meal => meal.id === mealId);
+                if (mealIndex !== -1) {
+                    const deletedMeal = nutritionData.today.meals[mealIndex];
+                    
+                     
+                    nutritionData.today.totals.calories -= deletedMeal.calories;
+                    nutritionData.today.totals.protein -= deletedMeal.protein;
+                    
+                     
+                    nutritionData.today.meals.splice(mealIndex, 1);
+                    
+                     
+                    localStorage.setItem('nutritionData', JSON.stringify(nutritionData));
+                    
+                     
+                    updateNutritionDashboard(nutritionData);
+                }
+            }
+
+             
+            function updateNutritionDashboard(data) {
+                
+                document.getElementById('caloriesConsumed').textContent = data.today.totals.calories;
+                document.getElementById('proteinConsumed').textContent = data.today.totals.protein;
+                
+                 
+                document.getElementById('caloriesProgress').style.width = 
+                    Math.min(100, (data.today.totals.calories / data.targets.calories) * 100) + '%';
+                document.getElementById('proteinProgress').style.width = 
+                    Math.min(100, (data.today.totals.protein / data.targets.protein) * 100) + '%';
+                
+                
+                const mealsList = document.getElementById('mealsList');
+                if (data.today.meals.length > 0) {
+                    mealsList.innerHTML = '';
+                    data.today.meals.forEach(meal => {
+                        const mealItem = document.createElement('div');
+                        mealItem.className = 'meal-item';
+                        
+                        const date = new Date(meal.timestamp);
+                        const timeString = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                        
+                        mealItem.innerHTML = `
+                            <div class="meal-info">
+                                <div class="meal-name">${meal.name}</div>
+                                <div class="meal-time">${meal.type.charAt(0).toUpperCase() + meal.type.slice(1)} • ${timeString}</div>
+                            </div>
+                            <div class="meal-macros">
+                                <span class="macro-pill calories">${meal.calories} kcal</span>
+                                <span class="macro-pill">${meal.protein}g P</span>
+                            </div>
+                            <button class="delete-btn" onclick="deleteMeal(${meal.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        `;
+                        mealsList.appendChild(mealItem);
+                    });
+                } else {
+                    mealsList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-utensils"></i>
+                            <p>No meals logged yet today</p>
+                        </div>
+                    `;
+                }
+            }
+
+             
+            window.deleteMeal = deleteMeal;
+        });
+    </script>
+</body>
+</html>
