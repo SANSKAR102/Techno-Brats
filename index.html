@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitBuddy - Your Wellness Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            min-height: 100vh;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .auth-buttons a {
+            margin-left: 15px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .login-btn {
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+        }
+        
+        .login-btn:hover {
+            background-color: #e8f5e9;
+        }
+        
+        .signup-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: 2px solid #4CAF50;
+        }
+        
+        .signup-btn:hover {
+            background-color: #3e8e41;
+            border-color: #3e8e41;
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 60px 0;
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+        
+        h1 {
+            font-size: 42px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin: 50px 0 30px;
+            text-align: center;
+        }
+        
+        p {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-btn:hover {
+            background-color: #3e8e41;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 50px 0;
+        }
+        
+        .feature {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #4CAF50;
+            font-size: 20px;
+        }
+        
+        .feature h3 {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-category {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-category h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-item i {
+            color: #4CAF50;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7f8c8d;
+            border-top: 1px solid #e4e8f0;
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                margin: 40px 0;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .features,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">FB</a>
+            <div class="auth-buttons">
+                <a href="login.html" class="login-btn">Log In</a>
+                <a href="signup.html" class="signup-btn">Sign Up</a>
+            </div>
+        </header>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your Complete Health & Fitness Solution</h1>
+                <p>Track workouts, nutrition, and health metrics in one place. Get personalized insights to reach your wellness goals faster.</p>
+                <a href="signup.html" class="cta-btn">Start Your Free Journey</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://img.freepik.com/free-vector/flat-design-woman-running-fitness-trackers_23-2148508678.jpg?semt=ais_hybrid&w=740" alt="Health and Fitness Website" style="max-width:400px; border-radius:12px;">
+            </div>
+        </section>
+        
+        <h2>Key Features</h2>
+        
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon"><i class="fas fa-dumbbell"></i></div>
+                <h3>Workout Tracking</h3>
+                <p>Log exercises, track progress, and follow custom workout plans tailored to your goals.</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                <h3>Nutrition Log</h3>
+                <p>Track meals, macros, and calories with our extensive food database and barcode scanner.</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon"><i class="fas fa-heartbeat"></i></div>
+                <h3>Health Metrics</h3>
+                <p>Monitor sleep, heart rate, water intake, and other vital health statistics.</p>
+            </div>
+        </section>
+        
+        <section class="feature-grid">
+            <div class="feature-category">
+                <h3><i class="fas fa-check-circle"></i> Fitness Features</h3>
+                <div class="feature-item"><i class="fas fa-check"></i> Exercise library with videos</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Custom workout plans</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Progress tracking</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Wearable integration</div>
+            </div>
+            
+            <div class="feature-category">
+                <h3><i class="fas fa-check-circle"></i> Nutrition Features</h3>
+                <div class="feature-item"><i class="fas fa-check"></i> Food diary & barcode scanner</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Macro tracking</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Meal planning</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Water intake tracking</div>
+            </div>
+            
+            <div class="feature-category">
+                <h3><i class="fas fa-check-circle"></i> Health Tools</h3>
+                <div class="feature-item"><i class="fas fa-check"></i> Sleep analysis</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Body measurements</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Health reports</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Medication reminders</div>
+            </div>
+            
+            <div class="feature-category">
+                <h3><i class="fas fa-check-circle"></i> Community</h3>
+                <div class="feature-item"><i class="fas fa-check"></i> Fitness challenges</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Progress sharing</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Expert advice</div>
+                <div class="feature-item"><i class="fas fa-check"></i> Support groups</div>
+            </div>
+        </section>
+        
+        <section style="text-align: center; margin: 50px 0;">
+            <h2>Ready to Transform Your Health?</h2>
+            <p>Join us and take control of your wellness journey today.</p>
+            <a href="signup.html" class="cta-btn">Get Started Now</a>
+        </section>
+        
+        
+    </div>
+</body>
+</html>
