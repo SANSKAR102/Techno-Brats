@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | FitBuddy</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #3e8e41;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f5f7fa;
+            --white: #ffffff;
+            --warning: #ff9800;
+            --info: #2196F3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        /* Main Content Styles */
+        main {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::after {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-text {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 80%;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .steps-icon { background-color: #e3f2fd; color: var(--info); }
+        .calories-icon { background-color: #ffebee; color: #f44336; }
+        .active-icon { background-color: #e8f5e9; color: var(--primary-color); }
+        .water-icon { background-color: #e3f2fd; color: var(--info); }
+
+        .stat-title {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            color: var(--text-dark);
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .stat-goal {
+            color: var(--text-light);
+            font-size: 12px;
+            margin-top: auto;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Activity Section */
+        .activity-section {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: var(--text-dark);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .view-all {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .activity-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background-color: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e8f5e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-name {
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .activity-time {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-btn {
+            background-color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .action-btn i {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Weekly Progress */
+        .weekly-progress {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .progress-chart {
+            height: 200px;
+            margin-top: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .bar {
+            width: 30px;
+            background-color: #e0e0e0;
+            border-radius: 5px 5px 0 0;
+            transition: height 0.5s ease, background-color 0.3s ease;
+            position: relative;
+        }
+
+        .bar.active {
+            background-color: var(--primary-color);
+        }
+
+        .chart-day {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            font-size: 10px;
+            font-weight: bold;
+            color: var(--text-dark);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 5px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .chart-bar:hover .bar-value {
+            display: block;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: #ffebee;
+            color: #f44336;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        .empty-state p {
+            margin-bottom: 15px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            main {
+                padding: 15px;
+            }
+            
+            .welcome-banner {
+                padding: 20px;
+            }
+            
+            .welcome-text {
+                max-width: 100%;
+            }
+            
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 15px;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .activity-item {
+                padding: 12px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="location.href='home.html'">FB</div>
+        <div class="user-menu">
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <div class="user-avatar" id="userAvatar">U</div>
+        </div>
+    </header>
+
+    <main>
+        
+        <section class="welcome-banner">
+            <h1>Welcome Back, <span id="userName">User</span>!</h1>
+            <p class="welcome-text">"Take care of your body. It's the only place you have to live." - Jim Rohn</p>
+        </section>
+
+        
+        <div class="quick-actions">
+            <button class="action-btn" onclick="location.href='activity.html'">
+                <i class="fas fa-running"></i>
+                <span>Add Activity</span>
+            </button>
+            <button class="action-btn" onclick="location.href='nutrition.html'">
+                <i class="fas fa-utensils"></i>
+                <span>Log Nutrition</span>
+            </button>
+            <button class="action-btn" onclick="location.href='workout.html'">
+                <i class="fas fa-dumbbell"></i>
+                <span>Start Workout</span>
+            </button>
+            <button class="action-btn" onclick="location.href='hydration.html'">
+                <i class="fas fa-tint"></i>
+                <span>Water Intake</span>
+            </button>
+        </div>
+
+        
+        <section class="weekly-progress">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-line"></i> Weekly Steps Progress</h2>
+                <a href="progress.html" class="view-all">View Details <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="progress-chart" id="weeklyChart">
+                 
+            </div>
+        </section>
+
+         
+        <section class="activity-section">
+            <div class="section-header">
+                <h2><i class="fas fa-history"></i> Recent Activities</h2>
+                <a href="activities.html" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="activity-list" id="recentActivities">
+                <div class="empty-state">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>No activities logged yet</p>
+                    <button class="action-btn" onclick="location.href='activity.html'" style="margin-top: 15px;">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Your First Activity</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+         
+        <section class="activity-section">
+            <div class="section-header">
+                <h2><i class="fas fa-lightbulb"></i> Health Tips</h2>
+                <a href="tips.html" class="view-all">More Tips <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon"><i class="fas fa-glass-whiskey"></i></div>
+                    <div class="activity-details">
+                        <div class="activity-name">Stay Hydrated</div>
+                        <div class="activity-time">Aim for at least 2L of water daily</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon"><i class="fas fa-moon"></i></div>
+                    <div class="activity-details">
+                        <div class="activity-name">Sleep Quality</div>
+                        <div class="activity-time">Try to get 7-9 hours of sleep each night</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon"><i class="fas fa-apple-alt"></i></div>
+                    <div class="activity-details">
+                        <div class="activity-name">Balanced Diet</div>
+                        <div class="activity-time">Include fruits and vegetables in every meal</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon"><i class="fas fa-walking"></i></div>
+                    <div class="activity-details">
+                        <div class="activity-name">Move Regularly</div>
+                        <div class="activity-time">Take short walks every hour if you sit for long</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const userName = localStorage.getItem('userFirstName') || 'User';
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+
+             
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                
+                localStorage.removeItem('userFirstName');
+                window.location.href = 'login.html';
+            });
+
+             
+            function generateWeeklySteps() {
+                const days = 7;
+                const today = new Date().getDay(); 
+                const stepsData = [];
+                
+                
+                for (let i = 0; i < days; i++) {
+                    let steps;
+                    if (i === today) {
+                       
+                        steps = Math.floor(Math.random() * 7000);
+                    } else if (i < today) {
+                        
+                        steps = 5000 + Math.floor(Math.random() * 10000);
+                    } else {
+                         
+                        steps = 0;
+                    }
+                    
+                    
+                    if (i === 0 || i === 6) { 
+                        steps = Math.floor(steps * 0.7);
+                    }
+                    
+                    stepsData.push(steps);
+                }
+                
+                return stepsData;
+            }
+
+             
+            let userData = JSON.parse(localStorage.getItem('userData')) || {
+                steps: 0,
+                calories: 0,
+                activeMinutes: 0,
+                waterIntake: 0,
+                activities: [],
+                weeklyProgress: generateWeeklySteps()
+            };
+
+             
+            if (!localStorage.getItem('userData')) {
+                userData.weeklyProgress = generateWeeklySteps();
+            }
+
+             
+            updateDashboard(userData);
+
+             
+            createWeeklyChart(userData.weeklyProgress);
+
+             
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'userData') {
+                    userData = JSON.parse(event.newValue);
+                    updateDashboard(userData);
+                }
+            });
+
+            
+            function simulateActivityCompletion() {
+                 
+                const activityTypes = ['walking', 'running', 'cycling', 'swimming', 'weight-training', 'yoga'];
+                const newActivity = {
+                    type: activityTypes[Math.floor(Math.random() * activityTypes.length)],
+                    duration: 15 + Math.floor(Math.random() * 45),  
+                    calories: 100 + Math.floor(Math.random() * 300),  
+                    steps: 1000 + Math.floor(Math.random() * 4000),  
+                    date: new Date().toISOString()
+                };
+
+                userData.activities.unshift(newActivity);
+                userData.steps += newActivity.steps;
+                userData.calories += newActivity.calories;
+                userData.activeMinutes += newActivity.duration;
+                
+                
+                const today = new Date().getDay();  
+                userData.weeklyProgress[today] += newActivity.steps;
+                
+                localStorage.setItem('userData', JSON.stringify(userData));
+                updateDashboard(userData);
+                createWeeklyChart(userData.weeklyProgress);
+            }
+
+            
+            function simulateWaterIntake() {
+                userData.waterIntake += 0.5;
+                localStorage.setItem('userData', JSON.stringify(userData));
+                updateDashboard(userData);
+            }
+
+            
+            function createWeeklyChart(weeklyData) {
+                const container = document.getElementById('weeklyChart');
+                container.innerHTML = '';
+
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const today = new Date().getDay();
+                const maxValue = Math.max(...weeklyData, 10000);  
+                const goalValue = 10000; 
+
+                weeklyData.forEach((value, index) => {
+                    
+                    const barHeight = (value / maxValue) * 100;
+                    const isToday = index === today;
+                    const isPastDay = index < today;
+                    const isFutureDay = index > today;
+
+                    const barContainer = document.createElement('div');
+                    barContainer.className = 'chart-bar';
+
+                    const bar = document.createElement('div');
+                    bar.className = 'bar' + (isToday ? ' active' : '');
+                    bar.style.height = `${barHeight}%`;
+                    
+                     
+                    if (value > 0) {
+                        const goalPosition = (goalValue / maxValue) * 100;
+                        if (goalPosition < barHeight) {
+                             
+                            const goalMarker = document.createElement('div');
+                            goalMarker.style.position = 'absolute';
+                            goalMarker.style.bottom = `${goalPosition}%`;
+                            goalMarker.style.width = '100%';
+                            goalMarker.style.height = '2px';
+                            goalMarker.style.backgroundColor = '#2c3e50';
+                            goalMarker.style.opacity = '0.5';
+                            bar.appendChild(goalMarker);
+                        }
+                    }
+
+                    
+                    const valueLabel = document.createElement('div');
+                    valueLabel.className = 'bar-value';
+                    valueLabel.textContent = value.toLocaleString();
+                    bar.appendChild(valueLabel);
+
+                    const label = document.createElement('div');
+                    label.className = 'chart-day';
+                    label.textContent = days[index];
+                    
+                    
+                    if (isFutureDay) {
+                        label.style.opacity = '0.5';
+                        bar.style.opacity = '0.5';
+                    }
+
+                    barContainer.appendChild(bar);
+                    barContainer.appendChild(label);
+
+                    container.appendChild(barContainer);
+                });
+
+                
+                const goalLabel = document.createElement('div');
+                goalLabel.style.position = 'absolute';
+                goalLabel.style.top = '20px';
+                goalLabel.style.right = '20px';
+                goalLabel.style.fontSize = '12px';
+                goalLabel.style.color = 'var(--text-light)';
+                goalLabel.innerHTML = `<i class="fas fa-bullseye" style="color: var(--primary-color);"></i> Daily Goal: 10,000 steps`;
+                container.appendChild(goalLabel);
+            }
+
+            
+            function updateDashboard(data) {
+                
+                document.getElementById('stepsCount').textContent = data.steps.toLocaleString();
+                document.getElementById('caloriesCount').textContent = data.calories.toLocaleString();
+                document.getElementById('activeMinutes').textContent = data.activeMinutes;
+                document.getElementById('waterIntake').textContent = data.waterIntake.toFixed(1) + ' L';
+                
+               
+                document.getElementById('stepsProgress').style.width = `${Math.min(100, (data.steps / 10000) * 100)}%`;
+                document.getElementById('caloriesProgress').style.width = `${Math.min(100, (data.calories / 500) * 100)}%`;
+                document.getElementById('activeProgress').style.width = `${Math.min(100, (data.activeMinutes / 30) * 100)}%`;
+                document.getElementById('waterProgress').style.width = `${Math.min(100, (data.waterIntake / 2.5) * 100)}%`;
+
+                
+                const activitiesContainer = document.getElementById('recentActivities');
+                if (data.activities.length > 0) {
+                    activitiesContainer.innerHTML = '';
+                    data.activities.slice(0, 3).forEach(activity => {
+                        const activityItem = document.createElement('div');
+                        activityItem.className = 'activity-item';
+                        
+                        let iconClass = 'fa-running';
+                        if (activity.type === 'weight-training') iconClass = 'fa-dumbbell';
+                        if (activity.type === 'yoga') iconClass = 'fa-spa';
+                        if (activity.type === 'cycling') iconClass = 'fa-bicycle';
+                        if (activity.type === 'swimming') iconClass = 'fa-swimmer';
+
+                        const date = new Date(activity.date);
+                        const timeString = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                        const dateString = date.toLocaleDateString([], {month: 'short', day: 'numeric'});
+
+                        activityItem.innerHTML = `
+                            <div class="activity-icon"><i class="fas ${iconClass}"></i></div>
+                            <div class="activity-details">
+                                <div class="activity-name">${activity.type.charAt(0).toUpperCase() + activity.type.slice(1).replace('-', ' ')}</div>
+                                <div class="activity-time">${dateString}, ${timeString} - ${activity.duration} mins, ${activity.calories} kcal</div>
+                            </div>
+                        `;
+                        activitiesContainer.appendChild(activityItem);
+                    });
+                }
+            }
+
+             
+            document.body.innerHTML += `
+                <div style="position: fixed; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 1000;">
+                    <button onclick="simulateActivityCompletion()" style="padding: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Simulate Activity</button>
+                    <button onclick="simulateWaterIntake()" style="padding: 10px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer;">Add 0.5L Water</button>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
