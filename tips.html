@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tips | FitBuddy</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #3e8e41;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f5f7fa;
+            --white: #ffffff;
+            --nutrition: #FF9800;
+            --exercise: #2196F3;
+            --mental: #9C27B0;
+            --sleep: #3F51B5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            min-height: 100vh;
+        }
+
+        
+        header {
+            background-color: var(--white);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+         
+        main {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        
+        .categories {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .category-btn {
+            background-color: var(--white);
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .category-btn.nutrition:hover:not(.active) {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--nutrition);
+        }
+
+        .category-btn.exercise:hover:not(.active) {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--exercise);
+        }
+
+        .category-btn.mental:hover:not(.active) {
+            background-color: rgba(156, 39, 176, 0.1);
+            color: var(--mental);
+        }
+
+        .category-btn.sleep:hover:not(.active) {
+            background-color: rgba(63, 81, 181, 0.1);
+            color: var(--sleep);
+        }
+
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-category {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 5px 15px;
+            border-radius: 0 0 0 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .nutrition-category {
+            background-color: var(--nutrition);
+        }
+
+        .exercise-category {
+            background-color: var(--exercise);
+        }
+
+        .mental-category {
+            background-color: var(--mental);
+        }
+
+        .sleep-category {
+            background-color: var(--sleep);
+        }
+
+        .tip-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .nutrition-icon {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--nutrition);
+        }
+
+        .exercise-icon {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--exercise);
+        }
+
+        .mental-icon {
+            background-color: rgba(156, 39, 176, 0.1);
+            color: var(--mental);
+        }
+
+        .sleep-icon {
+            background-color: rgba(63, 81, 181, 0.1);
+            color: var(--sleep);
+        }
+
+        .tip-title {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .tip-content {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .save-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .save-btn:hover {
+            color: var(--primary-color);
+        }
+
+         
+        .featured-tip {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-tip::after {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .featured-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .featured-tag {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .featured-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .featured-content {
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: #ffebee;
+            color: #f44336;
+        }
+
+         
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+            }
+            
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 15px;
+            }
+            
+            .categories {
+                gap: 10px;
+                padding-bottom: 5px;
+            }
+            
+            .category-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="location.href='home.html'">FB</div>
+        <div class="user-menu">
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <div class="user-avatar" id="userAvatar">U</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1><i class="fas fa-lightbulb"></i> Health & Wellness Tips</h1>
+            <a href="home.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+
+        
+        <section class="featured-tip">
+            <div class="featured-header">
+                <div class="featured-tag">Tip of the Day</div>
+            </div>
+            <h2 class="featured-title">Hydration is Key</h2>
+            <p class="featured-content">
+                Drinking enough water is essential for nearly every function in your body. 
+                Aim for at least 2 liters per day, and remember that fruits and vegetables 
+                also contribute to your daily water intake. Start your day with a glass of 
+                water to kickstart your metabolism.
+            </p>
+            <button class="save-btn" style="color: white;">
+                <i class="far fa-bookmark"></i> Save this tip
+            </button>
+        </section>
+
+        
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All Tips</button>
+            <button class="category-btn nutrition" data-category="nutrition">Nutrition</button>
+            <button class="category-btn exercise" data-category="exercise">Exercise</button>
+            <button class="category-btn mental" data-category="mental">Mental Health</button>
+            <button class="category-btn sleep" data-category="sleep">Sleep</button>
+        </div>
+
+        
+        <div class="tips-grid">
+             
+            <div class="tip-card" data-category="nutrition">
+                <div class="tip-category nutrition-category">Nutrition</div>
+                <div class="tip-icon nutrition-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <h3 class="tip-title">Eat the Rainbow</h3>
+                <p class="tip-content">
+                    Incorporate a variety of colorful fruits and vegetables in your diet. 
+                    Different colors represent different nutrients, so eating a rainbow ensures 
+                    you get a wide range of vitamins and minerals.
+                </p>
+                <button class="save-btn">
+                    <i class="far fa-bookmark"></i> Save for later
+                </button>
+            </div>
+
+             
+            <div class="tip-card" data-category="exercise">
+                <div class="tip-category exercise-category">Exercise</div>
+                <div class="tip-icon exercise-icon">
+                    <i class="fas fa-running"></i>
+                </div>
+                <h3 class="tip-title">Consistency Over Intensity</h3>
+                <p class="tip-content">
+                    Regular moderate exercise is better than occasional intense workouts. 
+                    Aim for at least 30 minutes of activity most days of the week. 
+                    Even walking counts and provides significant health benefits.
+                </p>
+                <button class="save-btn">
+                    <i class="far fa-bookmark"></i> Save for later
+                </button>
+            </div>
+
+             
+            <div class="tip-card" data-category="mental">
+                <div class="tip-category mental-category">Mental Health</div>
+                <div class="tip-icon mental-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="tip-title">Practice Mindfulness</h3>
+                <p class="tip-content">
+                    Take 5-10 minutes daily to practice mindfulness or meditation. 
+                    This can reduce stress, improve focus, and enhance emotional well-being. 
+                    Start with simple breathing exercises if you're new to meditation.
+                </p>
+                <button class="save-btn">
+                    <i class="far fa-bookmark"></i> Save for later
+                </button>
+            </div>
+
+            
+            <div class="tip-card" data-category="sleep">
+                <div class="tip-category sleep-category">Sleep</div>
+                <div class="tip-icon sleep-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <h3 class="tip-title">Establish a Bedtime Routine</h3>
+                <p class="tip-content">
+                    Create a consistent pre-sleep routine to signal your body it's time to wind down. 
+                    This might include reading, light stretching, or meditation. 
+                    Avoid screens at least 30 minutes before bedtime.
+                </p>
+                <button class="save-btn">
+                    <i class="far fa-bookmark"></i> Save for later
+                </button>
+            </div>
+
+             
+            <div class="tip-card" data-category="nutrition">
+                <div class="tip-category nutrition-category">Nutrition</div>
+                <div class="tip-icon nutrition-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 class="tip-title">Plan Your Meals</h3>
+                <p class="tip-content">
+                    Meal planning helps maintain healthy eating habits. 
+                    Prepare a weekly menu and grocery list to avoid impulse purchases. 
+                    Batch cooking on weekends can save time during busy weekdays.
+                </p>
+                <button class="save-btn">
+                    <i class="far fa-bookmark"></i> Save for later
+                </button>
+            </div>
+
+            
+            <div class="tip-card" data-category="exercise">
+                <div class="tip-category exercise-category">Exercise</div>
+                <div class="tip-icon exercise-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <h3 class="tip-title">Strength Training Matters</h3>
+                <p class="tip-content">
+                    Incorporate strength training 2-3 times per week. It helps maintain muscle mass, 
+                    boosts metabolism, and supports bone health. You don't need heavy weights - 
+                    bodyweight exercises can be very effective.
+                </p>
+                <button class="save-btn">
+                    <i class="far fa-bookmark"></i> Save for later
+                </button>
+            </div>
+
+           
+            <div class="tip-card" data-category="mental">
+                <div class="tip-category mental-category">Mental Health</div>
+                <div class="tip-icon mental-icon">
+                    <i class="fas fa-smile"></i>
+                </div>
+                <h3 class="tip-title">Gratitude Practice</h3>
+                <p class="tip-content">
+                    Keep a gratitude journal and write down 3 things you're grateful for each day. 
+                    This simple practice can improve mood, reduce stress, and shift your 
+                    perspective to focus on the positive aspects of life.
+                </p>
+                <button class="save-btn">
+                    <i class="far fa-bookmark"></i> Save for later
+                </button>
+            </div>
+
+            
+            <div class="tip-card" data-category="sleep">
+                <div class="tip-category sleep-category">Sleep</div>
+                <div class="tip-icon sleep-icon">
+                    <i class="fas fa-bed"></i>
+                </div>
+                <h3 class="tip-title">Optimize Your Sleep Environment</h3>
+                <p class="tip-content">
+                    Keep your bedroom cool, dark, and quiet. Invest in a comfortable mattress 
+                    and pillows. Consider blackout curtains and white noise machines if needed. 
+                    Reserve your bed for sleep and intimacy only.
+                </p>
+                <button class="save-btn">
+                    <i class="far fa-bookmark"></i> Save for later
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+ 
+            const userName = localStorage.getItem('userFirstName') || 'User';
+            document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+
+            
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('userFirstName');
+                window.location.href = 'login.html';
+            });
+
+            
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const tipCards = document.querySelectorAll('.tip-card');
+
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                     
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category;
+                    
+                     
+                    tipCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+             
+            const saveBtns = document.querySelectorAll('.save-btn');
+            
+            saveBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        this.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+                         
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        this.innerHTML = '<i class="far fa-bookmark"></i> Save for later';
+                         
+                    }
+                });
+            });
+
+           
+            const featuredTips = [
+                {
+                    title: "Stay Active Throughout the Day",
+                    content: "Even if you exercise regularly, prolonged sitting can negatively impact your health. Set a timer to stand up and move for 2-3 minutes every hour. Small movements add up throughout the day.",
+                    category: "Exercise"
+                },
+                {
+                    title: "Mindful Eating",
+                    content: "Slow down and pay attention to your food. Eat without distractions, chew thoroughly, and listen to your body's hunger and fullness cues. This can improve digestion and prevent overeating.",
+                    category: "Nutrition"
+                },
+                {
+                    title: "Digital Detox",
+                    content: "Regular breaks from screens can reduce eye strain and improve mental well-being. Try implementing screen-free hours before bed or one screen-free day per week.",
+                    category: "Mental Health"
+                }
+            ];
+
+            const featuredTip = featuredTips[Math.floor(Math.random() * featuredTips.length)];
+            document.querySelector('.featured-title').textContent = featuredTip.title;
+            document.querySelector('.featured-content').textContent = featuredTip.content;
+            document.querySelector('.featured-tag').textContent = featuredTip.category;
+        });
+    </script>
+</body>
+</html>
