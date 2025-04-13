@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Activities | FitBuddy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #3e8e41;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f5f7fa;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--white);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .user-avatar {
+            background-color: #e0e0e0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .activity-item {
+            background-color: var(--white);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .activity-time {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-light);
+            margin-top: 40px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-btn i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="location.href='home.html'">FB</div>
+        <div class="user-avatar" id="userAvatar">U</div>
+    </header>
+
+    <main>
+        <a href="home.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        <h1>All Logged Activities</h1>
+        <div class="activity-list" id="activityList"></div>
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-clipboard-list" style="font-size: 40px; margin-bottom: 10px;"></i>
+            <p>No activities found.</p>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userName = localStorage.getItem('userFirstName') || 'U';
+            document.getElementById('userAvatar').textContent = userName.charAt(0).toUpperCase();
+
+            const activityList = document.getElementById('activityList');
+            const emptyState = document.getElementById('emptyState');
+            const data = JSON.parse(localStorage.getItem('userData')) || { activities: [] };
+
+            if (data.activities && data.activities.length > 0) {
+                data.activities.forEach(activity => {
+                    const activityItem = document.createElement('div');
+                    activityItem.className = 'activity-item';
+
+                    let iconClass = 'fa-running';
+                    if (activity.type === 'weight-training') iconClass = 'fa-dumbbell';
+                    else if (activity.type === 'yoga') iconClass = 'fa-spa';
+                    else if (activity.type === 'cycling') iconClass = 'fa-bicycle';
+                    else if (activity.type === 'swimming') iconClass = 'fa-swimmer';
+
+                    const date = new Date(activity.date);
+                    const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const dateString = date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+
+                    activityItem.innerHTML = `
+                        <div class="activity-icon"><i class="fas ${iconClass}"></i></div>
+                        <div class="activity-details">
+                            <div class="activity-name">${activity.type.charAt(0).toUpperCase() + activity.type.slice(1).replace('-', ' ')}</div>
+                            <div class="activity-time">${dateString}, ${timeString} - ${activity.duration} mins, ${activity.calories} kcal</div>
+                        </div>
+                    `;
+
+                    activityList.appendChild(activityItem);
+                });
+            } else {
+                emptyState.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
