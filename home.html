@@ -423,7 +423,11 @@
             <button class="logout-btn" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </button>
-            <div class="user-avatar" id="userAvatar">U</div>
+            <a href="profile.html" style="text-decoration: none; color: inherit;">
+                <div class="user-avatar" id="userAvatar">U</div>
+              </a>
+              
+              
         </div>
     </header>
 
@@ -534,7 +538,7 @@
             document.getElementById('logoutBtn').addEventListener('click', function() {
                 // In a real app, you would call your logout API here
                 localStorage.removeItem('userFirstName');
-                window.location.href = 'index.html';
+                window.location.href = 'login.html';
             });
 
             // Load user data from localStorage or initialize empty
